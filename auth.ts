@@ -4,7 +4,7 @@ import GitHub from "next-auth/providers/github";
 export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/signin",
+    signIn: "/sign-in",
   },
   providers: [
     GitHub({

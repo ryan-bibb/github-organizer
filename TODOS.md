@@ -41,3 +41,4 @@ none
 ## UI
 
 - //TODO: add skeletons
+- //TODO: add empty badge for no repos
