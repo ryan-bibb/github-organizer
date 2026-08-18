@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Oxanium } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
+import { cn } from "@/lib/utils";
+import { Button } from "@base-ui/react";
+
+const oxanium = Oxanium({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +26,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={cn(
+        "h-full",
+        "antialiased",
+        geistSans.variable,
+        geistMono.variable,
+        "font-sans",
+        oxanium.variable,
+      )}
     >
       <body className="min-h-full flex flex-col">
         <Providers>{children}</Providers>
