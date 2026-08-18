@@ -36,4 +36,8 @@ none
 
 ## env variables
 
-- //TODO: update local urls to vercel url when app is deployed
+- //TODO: update local urls to vercel url when app is deploye
+
+## UI
+
+- //TODO: add skeletons

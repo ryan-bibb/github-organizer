@@ -3,7 +3,6 @@ import { Geist, Geist_Mono, Oxanium } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import { cn } from "@/lib/utils";
-import { Button } from "@base-ui/react";
 
 const oxanium = Oxanium({ subsets: ["latin"], variable: "--font-sans" });
 
