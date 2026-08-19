@@ -42,3 +42,7 @@ none
 
 - //TODO: add skeletons
 - //TODO: add empty badge for no repos
+
+## CI/CD
+
+- possibly add Github workflows for typecheck + lint
