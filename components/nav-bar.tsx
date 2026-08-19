@@ -29,14 +29,12 @@ export async function NavBar() {
         <DropdownMenuContent>
           <DropdownMenuGroup>
             <DropdownMenuLabel>Menu</DropdownMenuLabel>
-            <DropdownMenuItem>
-              <Link href="/">Home</Link>
-            </DropdownMenuItem>
+            <DropdownMenuItem render={<Link href="/" />}>Home</DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <Link href="/settings">Settings</Link>
+            <DropdownMenuItem render={<Link href="/settings" />}>
+              Settings
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
@@ -59,6 +57,7 @@ export async function NavBar() {
             className="size-8 rounded-full"
             width={32}
             height={32}
+            priority
           />
         )}
       </div>
