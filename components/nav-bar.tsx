@@ -18,7 +18,7 @@ export async function NavBar() {
 
   return (
     <div className="flex items-center justify-between gap-2 border-b-2 border-primary px-6 py-4">
-      <DropdownMenu className="w-full">
+      <DropdownMenu>
         <DropdownMenuTrigger
           render={
             <Button size="icon">
@@ -30,6 +30,9 @@ export async function NavBar() {
           <DropdownMenuGroup>
             <DropdownMenuLabel>Menu</DropdownMenuLabel>
             <DropdownMenuItem render={<Link href="/" />}>Home</DropdownMenuItem>
+            <DropdownMenuItem render={<Link href="/repos" />}>
+              Repos
+            </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
