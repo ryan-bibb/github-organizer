@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { getInstallationOctokit } from "@/lib/github";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import EmptyPrState from "@/components/empty-state-prs";
 
 export default async function RepoPulls({
   params,
@@ -19,9 +25,7 @@ export default async function RepoPulls({
         {owner}/{repo} — Open pull requests
       </h1>
       {pulls.length === 0 && (
-        <p className="text-muted-foreground text-sm">
-          No open pull requests.
-        </p>
+        <EmptyPrState url={`https://github.com/${owner}/${repo}`} />
       )}
       {pulls.map((pr) => (
         <Link key={pr.id} href={pr.html_url} target="_blank" rel="noreferrer">
