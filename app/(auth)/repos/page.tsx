@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { CircleDot, Star } from "lucide-react";
+import { CircleDot, ListFilter, Star } from "lucide-react";
 import { getInstallationOctokit } from "@/lib/github";
 import { formatRelativeTime } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,6 +11,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import EmptyRepoState from "@/components/empty-state-repos";
 
 {
@@ -40,18 +47,59 @@ Links/owner
  */
 }
 
-export default async function Repos() {
+// TODO:  add more repo filters if necessary
+export default async function Repos({ searchParams }: PageProps<"/repos">) {
+  const { sort } = await searchParams;
   const octokit = await getInstallationOctokit();
   const repos = await octokit.paginate(
     octokit.apps.listReposAccessibleToInstallation,
   );
 
+  let sortedRepos: (typeof repos)[number][] = repos;
+  switch (sort) {
+    case "recent":
+      sortedRepos = [...repos].sort(
+        (a, b) =>
+          new Date(b.pushed_at ?? 0).getTime() -
+          new Date(a.pushed_at ?? 0).getTime(),
+      );
+      break;
+    case "star":
+      sortedRepos = [...repos].sort(
+        (a, b) => b.stargazers_count - a.stargazers_count,
+      );
+      break;
+  }
+
   return (
     <div className="flex flex-col gap-3 p-6">
-      <h1 className="text-lg font-semibold">Repositories</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-lg font-semibold">Repositories</h1>
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={
+              <Button variant="outline" size="sm">
+                <ListFilter className="size-4" />
+                Filter
+              </Button>
+            }
+          />
+          <DropdownMenuContent>
+            <DropdownMenuItem render={<Link href="/repos" />}>
+              None
+            </DropdownMenuItem>
+            <DropdownMenuItem render={<Link href="/repos?sort=recent" />}>
+              Most recent
+            </DropdownMenuItem>
+            <DropdownMenuItem render={<Link href="/repos?sort=star" />}>
+              Stars
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       {repos.length === 0 && <EmptyRepoState />}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-        {repos.map((repo) => (
+        {sortedRepos.map((repo) => (
           <Link key={repo.id} href={`/repos/${repo.owner.login}/${repo.name}`}>
             <Card className="aspect-5/7">
               <CardHeader>
