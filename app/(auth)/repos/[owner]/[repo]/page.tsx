@@ -18,6 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { ListFilter } from "lucide-react";
 import EmptyPrState from "@/components/empty-state-prs";
 import { daysOpen, getPriority } from "@/lib/utils";
+import BackButton from "@/components/back-button";
 
 {
   /**
@@ -64,6 +65,7 @@ export default async function RepoPulls({
   return (
     <div className="flex flex-col gap-3 p-6">
       <div className="flex items-center justify-between">
+        <BackButton url="/repos" />
         <h1 className="text-lg font-semibold">
           {owner}/{repo} — Open pull requests
         </h1>
