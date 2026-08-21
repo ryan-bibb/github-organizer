@@ -3,6 +3,7 @@ import { getInstallationOctokit } from "@/lib/github";
 import {
   Card,
   CardHeader,
+  CardFooter,
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
@@ -13,8 +14,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { ListFilter } from "lucide-react";
 import EmptyPrState from "@/components/empty-state-prs";
+import { daysOpen } from "@/lib/utils";
 
 export default async function RepoPulls({
   params,
@@ -81,6 +84,13 @@ export default async function RepoPulls({
               </CardTitle>
               <CardDescription>by {pr.user?.login}</CardDescription>
             </CardHeader>
+            <CardFooter>
+              {daysOpen(pr.created_at) ? (
+                <Badge variant="destructive">OLD</Badge>
+              ) : (
+                <Badge variant="outline">NEW</Badge>
+              )}
+            </CardFooter>
           </Card>
         </Link>
       ))}
