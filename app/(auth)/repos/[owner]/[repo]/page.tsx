@@ -6,6 +6,14 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { ListFilter } from "lucide-react";
 import EmptyPrState from "@/components/empty-state-prs";
 
 export default async function RepoPulls({
@@ -21,9 +29,33 @@ export default async function RepoPulls({
 
   return (
     <div className="flex flex-col gap-3 p-6">
-      <h1 className="text-lg font-semibold">
-        {owner}/{repo} — Open pull requests
-      </h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-lg font-semibold">
+          {owner}/{repo} — Open pull requests
+        </h1>
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            render={
+              <Button size="sm">
+                <ListFilter className="size-4" />
+                Filter
+              </Button>
+            }
+          />
+          <DropdownMenuContent>
+            <DropdownMenuItem
+              render={<Link href={`/repos/${owner}/${repo}`} />}
+            >
+              None
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              render={<Link href={`/repos/${owner}/${repo}?sort=recent`} />}
+            >
+              Most recently updated
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
       {pulls.length === 0 && (
         <EmptyPrState url={`https://github.com/${owner}/${repo}`} />
       )}
