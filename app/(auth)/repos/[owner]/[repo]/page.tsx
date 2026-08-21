@@ -18,14 +18,27 @@ import EmptyPrState from "@/components/empty-state-prs";
 
 export default async function RepoPulls({
   params,
+  searchParams,
 }: PageProps<"/repos/[owner]/[repo]">) {
   const { owner, repo } = await params;
+  const { sort } = await searchParams;
   const octokit = await getInstallationOctokit();
   const pulls = await octokit.paginate(octokit.pulls.list, {
     owner,
     repo,
     state: "open",
   });
+
+  let sortedPulls: (typeof pulls)[number][] = pulls;
+
+  switch (sort) {
+    case "recent":
+      sortedPulls = [...pulls].sort(
+        (a, b) =>
+          new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
+      );
+      break;
+  }
 
   return (
     <div className="flex flex-col gap-3 p-6">
@@ -59,7 +72,7 @@ export default async function RepoPulls({
       {pulls.length === 0 && (
         <EmptyPrState url={`https://github.com/${owner}/${repo}`} />
       )}
-      {pulls.map((pr) => (
+      {sortedPulls.map((pr) => (
         <Link key={pr.id} href={pr.html_url} target="_blank" rel="noreferrer">
           <Card size="sm">
             <CardHeader>
