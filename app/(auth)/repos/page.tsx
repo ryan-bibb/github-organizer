@@ -3,7 +3,6 @@ import { getInstallationOctokit } from "@/lib/github";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import EmptyRepoState from "@/components/empty-state-repos";
-import BackButton from "@/components/back-button";
 
 export default async function Repos() {
   const octokit = await getInstallationOctokit();
