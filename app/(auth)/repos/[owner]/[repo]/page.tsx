@@ -17,8 +17,17 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ListFilter } from "lucide-react";
 import EmptyPrState from "@/components/empty-state-prs";
-import { daysOpen } from "@/lib/utils";
+import { daysOpen, getPriority } from "@/lib/utils";
 
+{
+  /**
+    There are file levels of importance:
+      P1 - Less import, still needs a look - Green
+      P2 - Important, but not immediate - Yellow
+      P3 - Immediate attention required - Red
+          
+  */
+}
 export default async function RepoPulls({
   params,
   searchParams,
@@ -41,6 +50,14 @@ export default async function RepoPulls({
           new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
       );
       break;
+    case "importance":
+      sortedPulls = [...pulls].sort((a, b) => {
+        const pa = getPriority(a.title);
+        const pb = getPriority(b.title);
+        if (pa === null) return pb === null ? 0 : 1;
+        return pa - pb;
+      });
+      break;
   }
 
   return (
@@ -49,6 +66,7 @@ export default async function RepoPulls({
         <h1 className="text-lg font-semibold">
           {owner}/{repo} — Open pull requests
         </h1>
+
         <DropdownMenu>
           <DropdownMenuTrigger
             render={
@@ -68,6 +86,13 @@ export default async function RepoPulls({
               render={<Link href={`/repos/${owner}/${repo}?sort=recent`} />}
             >
               Most recently updated
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              render={
+                <Link href={`/repos/${owner}/${repo}/?sort=importance`} />
+              }
+            >
+              Rank by importance
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -90,6 +115,19 @@ export default async function RepoPulls({
               ) : (
                 <Badge variant="outline">NEW</Badge>
               )}
+              {(() => {
+                const priority = getPriority(pr.title);
+                switch (priority) {
+                  case 1:
+                    return <Badge variant="success">LOW</Badge>;
+                  case 2:
+                    return <Badge variant="warning">MED</Badge>;
+                  case 3:
+                    return <Badge variant="destructive">HIGH</Badge>;
+                  default:
+                    return <Badge>UNLABELED</Badge>;
+                }
+              })()}
             </CardFooter>
           </Card>
         </Link>
