@@ -55,6 +55,7 @@ export default async function RepoPulls({
         const pa = getPriority(a.title);
         const pb = getPriority(b.title);
         if (pa === null) return pb === null ? 0 : 1;
+        if (pb === null) return -1;
         return pa - pb;
       });
       break;
@@ -107,9 +108,12 @@ export default async function RepoPulls({
               <CardTitle>
                 #{pr.number} {pr.title}
               </CardTitle>
-              <CardDescription>by {pr.user?.login}</CardDescription>
+              <CardDescription className="flex flex-col gap-1">
+                <span>by {pr.user?.login}</span>
+                {pr.body && <span className="line-clamp-2">{pr.body}</span>}
+              </CardDescription>
             </CardHeader>
-            <CardFooter>
+            <CardFooter className="gap-2">
               {daysOpen(pr.created_at) ? (
                 <Badge variant="destructive">OLD</Badge>
               ) : (
