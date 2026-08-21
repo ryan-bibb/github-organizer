@@ -46,3 +46,7 @@ none
 ## CI/CD
 
 - possibly add Github workflows for typecheck + lint
+
+## Feats
+
+- maybe make sure all normal github feats are the same plus our additional features
