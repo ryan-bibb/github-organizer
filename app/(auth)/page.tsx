@@ -9,6 +9,7 @@ export default async function Home() {
   const counts = login ? await getContributionCounts(login) : {};
   const total = Object.values(counts).reduce((sum, count) => sum + count, 0);
 
+  // TODO: maybe add option to click into that specific day + filter types of contributions
   return (
     <div className="flex flex-1 items-center justify-center">
       <main className="flex w-full max-w-3xl flex-col items-center gap-4 px-16 py-32">
