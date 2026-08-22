@@ -78,7 +78,7 @@ export default async function Repos({ searchParams }: PageProps<"/repos">) {
         <DropdownMenu>
           <DropdownMenuTrigger
             render={
-              <Button variant="outline" size="sm">
+              <Button size="sm">
                 <ListFilter className="size-4" />
                 Filter
               </Button>
