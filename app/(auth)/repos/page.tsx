@@ -17,7 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import EmptyRepoState from "@/components/empty-state-repos";
+import EmptyRepoState from "@/components/empty-states/repos";
 
 {
   /**
