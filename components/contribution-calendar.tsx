@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const WINDOW_DAYS = 120;
 
@@ -31,11 +32,12 @@ export function ContributionCalendar({
   return (
     <div className="grid grid-flow-col grid-rows-7 gap-1">
       {days.map((day) => (
-        <div
-          key={day.date}
-          title={`${day.date}: ${day.count} contribution${day.count === 1 ? "" : "s"}`}
-          className={cn("size-3 rounded-sm", levelClass(day.count, max))}
-        />
+        <Link key={day.date} href={`/contributions?date=${day.date}`}>
+          <div
+            title={`${day.date}: ${day.count} contribution${day.count === 1 ? "" : "s"}`}
+            className={cn("size-3 rounded-sm", levelClass(day.count, max))}
+          />
+        </Link>
       ))}
     </div>
   );

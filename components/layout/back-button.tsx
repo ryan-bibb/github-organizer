@@ -4,7 +4,7 @@ import { ArrowLeft } from "lucide-react";
 
 export default function BackButton({ url }: { url: string }) {
   return (
-    <Button size="sm" render={<Link href={url} />}>
+    <Button size="sm" nativeButton={false} render={<Link href={url} />}>
       <ArrowLeft />
     </Button>
   );
