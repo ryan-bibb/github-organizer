@@ -1,4 +1,4 @@
-import { AppearanceSettings } from "@/components/appearance-settings";
+import { AppearanceSettings } from "@/components/theme/appearance-settings";
 
 export default async function Settings() {
   return (

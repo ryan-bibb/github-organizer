@@ -16,9 +16,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ListFilter } from "lucide-react";
-import EmptyPrState from "@/components/empty-state-prs";
+import EmptyPrState from "@/components/empty-states/prs";
 import { daysOpen, getPriority } from "@/lib/utils";
-import BackButton from "@/components/back-button";
+import BackButton from "@/components/layout/back-button";
 
 {
   /**
